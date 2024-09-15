@@ -1,7 +1,7 @@
 # Grep Excel Tool
 A Grep Excel Files Tool
 ## Introduction
-A tool with search keyword in many excel files purpose
+A tool with search keyword feature in many excel files purpose 
 
 Main Features:
 - Search keyword in many excel files from select folder
