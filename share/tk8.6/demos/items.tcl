@@ -17,7 +17,7 @@ wm iconname $w "Items"
 positionWindow $w
 set c $w.frame.c
 
-label $w.msg -font $font -wraplength 5i -justify left -text "This window contains a canvas widget with examples of the various kinds of items supported by canvases.  The following operations are supported:\n  Left-Button drag:\tmoves item under pointer.\n  Middle-Button drag:\trepositions view.\n  Right-Button drag:\tstrokes out area.\n  Ctrl+f:\t\tprints items under area."
+label $w.msg -font $font -wraplength 5i -justify left -text "This window contains a canvas widget with examples of the various kinds of items supported by canvases.  The following operations are supported:\n  Button-1 drag:\tmoves item under pointer.\n  Button-2 drag:\trepositions view.\n  Button-3 drag:\tstrokes out area.\n  Ctrl+f:\t\tprints items under area."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons
@@ -32,7 +32,7 @@ canvas $c -scrollregion {0c 0c 30c 24c} -width 15c -height 10c \
 	-xscrollcommand "$w.frame.hscroll set" \
 	-yscrollcommand "$w.frame.vscroll set"
 ttk::scrollbar $w.frame.vscroll -command "$c yview"
-ttk::scrollbar $w.frame.hscroll -orient horizontal -command "$c xview"
+ttk::scrollbar $w.frame.hscroll -orient horiz -command "$c xview"
 
 grid $c -in $w.frame \
     -row 0 -column 0 -rowspan 1 -columnspan 1 -sticky news
@@ -171,21 +171,14 @@ $c create text 28.5c 17.4c -text Scale: -anchor s
 
 # Set up event bindings for canvas:
 
-$c bind item <Enter> "itemEnter $c"
-$c bind item <Leave> "itemLeave $c"
-if {[tk windowingsystem] eq "aqua" && ![package vsatisfies [package provide Tk] 8.7-]} {
-    bind $c <Button-2> "itemMark $c %x %y"
-    bind $c <B2-Motion> "itemStroke $c %x %y"
-    bind $c <Button-3> "$c scan mark %x %y"
-    bind $c <B3-Motion> "$c scan dragto %x %y"
-} else {
-    bind $c <Button-2> "$c scan mark %x %y"
-    bind $c <B2-Motion> "$c scan dragto %x %y"
-    bind $c <Button-3> "itemMark $c %x %y"
-    bind $c <B3-Motion> "itemStroke $c %x %y"
-}
+$c bind item <Any-Enter> "itemEnter $c"
+$c bind item <Any-Leave> "itemLeave $c"
+bind $c <2> "$c scan mark %x %y"
+bind $c <B2-Motion> "$c scan dragto %x %y"
+bind $c <3> "itemMark $c %x %y"
+bind $c <B3-Motion> "itemStroke $c %x %y"
 bind $c <<NextChar>> "itemsUnderArea $c"
-bind $c <Button-1> "itemStartDrag $c %x %y"
+bind $c <1> "itemStartDrag $c %x %y"
 bind $c <B1-Motion> "itemDrag $c %x %y"
 
 # Utility procedures for highlighting the item under the pointer:
@@ -257,14 +250,14 @@ proc itemsUnderArea {c} {
     set area [$c find withtag area]
     set items ""
     foreach i [$c find enclosed $areaX1 $areaY1 $areaX2 $areaY2] {
-	if {[lsearch [$c gettags $i] item] >= 0} {
+	if {[lsearch [$c gettags $i] item] != -1} {
 	    lappend items $i
 	}
     }
     puts stdout "Items enclosed by area: $items"
     set items ""
     foreach i [$c find overlapping $areaX1 $areaY1 $areaX2 $areaY2] {
-	if {[lsearch [$c gettags $i] item] >= 0} {
+	if {[lsearch [$c gettags $i] item] != -1} {
 	    lappend items $i
 	}
     }

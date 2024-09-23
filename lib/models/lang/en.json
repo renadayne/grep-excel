@@ -1,0 +1,12 @@
+{
+    "choose_folder": "Choose Folder",
+    "enter_keyword": "Enter Keyword",
+    "match_case": "Match Case",
+    "match_entire": "Match Entire Cell",
+    "search": "Search",
+    "error": "Error",
+    "file_open_error": "Cannot open file:",
+    "no_results": "No results found.",
+    "app_title": "Keyword Search Tool",
+    "close": "Close"
+}

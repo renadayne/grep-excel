@@ -18,6 +18,7 @@ positionWindow $w
 
 frame $w.body
 pack $w.body -expand 1 -fill both
+if {[tk windowingsystem] eq "aqua"} {catch {set origUseCustomMDEF $::tk::mac::useCustomMDEF; set ::tk::mac::useCustomMDEF 1}}
 
 menubutton $w.body.below -text "Below" -underline 0 -direction below -menu $w.body.below.m -relief raised
 menu $w.body.below.m -tearoff 0
@@ -85,3 +86,5 @@ foreach i {Black gray75 gray50 White} {
 }
 
 pack $body.buttons.colors -side left -padx 25 -pady 25
+
+if {[tk windowingsystem] eq "aqua"} {catch {set ::tk::mac::useCustomMDEF $origUseCustomMDEF}}
