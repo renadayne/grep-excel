@@ -7,11 +7,13 @@ Main Features:
 - Search keyword in many excel files from select folder
 - Open folder with keyword
 ## Update
-Version: 1.0
+Version: 2.0
 
 In this version:
-- Add basic features: Search keyword, match case, match entire, open folder with keyword
-- Create basic GUI
+- Improve GUI
+- Change language (Vietnamese & English)
+- Fix bug can't open folder include keyword
+- Add content dialog (it's help you to see all contents of cell you click)
 
 Some other features will be updated in the next versions.
 
@@ -24,4 +26,5 @@ Some other features will be updated in the next versions.
 <p align="center"><a href="https://github.com/renadayne/grep-excel"><img width="50%" src="https://github.com/user-attachments/assets/0046fd5e-8fbc-44d4-9653-a70bc3cc17c2"></a></p>
 
 ## Contact
-If you have any comments about the application, don't hesitate to contact me via: huytuduelist@gmail.com
+If you have any comments about the application, don't hesitate to contact me via: 
+- Gmail: huytuduelist@gmail.com
